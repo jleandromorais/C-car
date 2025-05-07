@@ -1,42 +1,55 @@
 #include <stdio.h>
-#include "keyboard.h"
-#include "screen.h"
+#include "ControleCar.h"
 
-int carX = 10;
-int carY = 10;
+// Variáveis locais (static para evitar conflitos)
+static int carX = 10;
+static int carY = 10;
 
-void desenhaCarro() {
+// Função para desenhar o carro
+static void desenhaCarro() {
     screenGotoxy(carX, carY);
     printf("CC");
 }
 
-void limpaCarro() {
+// Função para apagar o carro
+static void limpaCarro() {
     screenGotoxy(carX, carY);
-    printf("  "); // apaga o carro anterior
+    printf("  ");
 }
 
-int main() {
+// Implementação da função principal
+int ControleCar_run() {
     int ch = 0;
-    screenInit(0);        // Inicializa tela sem bordas
-    keyboardInit();       // Inicializa teclado
+    
+    // Inicializa sistemas
+    screenInit(0);        // Tela sem bordas
+    keyboardInit();       // Teclado
 
+    // Desenha o carro inicial
     desenhaCarro();
     screenUpdate();
 
+    // Loop principal
     while (ch != 27) { // ESC para sair
         if (keyhit()) {
             ch = readch();
             limpaCarro();
 
-            if (ch == 'a' && carX > 1) carX--;          // Move para a esquerda
-            if (ch == 'd' && carX < MAXX - 3) carX++;   // Move para a direita
+            // Movimento para esquerda
+            if (ch == 'a' && carX > 1) carX--;
+            
+            // Movimento para direita
+            if (ch == 'd' && carX < MAXX - 3) carX++;
 
+            // Redesenha o carro na nova posição
             desenhaCarro();
             screenUpdate();
         }
     }
 
-    keyboardDestroy();  // Restaura configurações do terminal
+    // Finalização
+    keyboardDestroy();  // Restaura terminal
     screenDestroy();    // Limpa tela
+    
     return 0;
 }

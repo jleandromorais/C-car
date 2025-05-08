@@ -52,13 +52,13 @@ CESAR School
 3. Compile o projeto:
 
    ```bash
-   gcc src/*.c -Iinclude -Icli-lib -o build/c-car -lncurses
+   make
    ```
 
 4. Execute o jogo:
 
    ```bash
-   ./build/c-car
+   ./bin/jogo-car
    ```
 
 > ⚠️ Certifique-se de que você está com o terminal em modo compatível com `ncurses` e que o terminal suporta caracteres ASCII.

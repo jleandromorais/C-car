@@ -1,110 +1,45 @@
+#include "../include/cenario.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <string.h>
+#include <termios.h>
+#include <unistd.h>
 
-#include "screen.h"
-#include "keyboard.h"
-#include "timer.h"
+static struct termios old_term;
 
-// Posição do carrinho
-int carX = 40;
-const int carY = 23;
-
-// Obstáculo
-int obstX;
-int obstY = 1;
-
-// Pontuação
-int pontos = 0;
-int velocidade = 50;
-
-void desenhaCarro() {
-    screenSetColor(RED, DARKGRAY);
-    screenGotoxy(carX, carY);
-    printf("A");  // símbolo do carrinho
+void disable_raw_mode() {
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &old_term);
 }
 
-void desenhaObstaculo() {
-    screenSetColor(WHITE, DARKGRAY);
-    screenGotoxy(obstX, obstY);
-    printf("#");
-}
-
-void limpaPosicao(int x, int y) {
-    screenGotoxy(x, y);
-    printf(" ");
-}
-
-void desenhaPontuacao() {
-    screenSetColor(GREEN, DARKGRAY);
-    screenGotoxy(2, 1);
-    printf("Pontos: %d", pontos);
-}
-
-int colidiu() {
-    return obstY == carY && obstX == carX;
-}
-
-void novoObstaculo() {
-    obstY = 1;
-    obstX = rand() % (MAXX - 2) + 2;  // Evita as bordas
+void enable_raw_mode() {
+    tcgetattr(STDIN_FILENO, &old_term);
+    struct termios raw = old_term;
+    raw.c_lflag &= ~(ECHO | ICANON);
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
 int main() {
-    int ch = 0;
-    srand(time(NULL));
+    enable_raw_mode();
+    atexit(disable_raw_mode);
 
-    screenInit(1);
-    keyboardInit();
-    timerInit(velocidade);
+    int pos = 0;
+    char c;
+    
+    printf("Controles: A (esquerda), D (direita), ESC (sair)\n");
+    printf("Carro SEMPRE visível e passando por cima quando necessário!\n");
+    sleep(1);
 
-    novoObstaculo();
-    desenhaCarro();
-    desenhaObstaculo();
-    desenhaPontuacao();
-    screenUpdate();
-
-    while (ch != 27) { // ESC para sair
-        if (keyhit()) {
-            ch = readch();
-            limpaPosicao(carX, carY);
-
-            if (ch == 'a' && carX > 2) carX--;
-            if (ch == 'd' && carX < MAXX - 1) carX++;
-
-            desenhaCarro();
-            screenUpdate();
+    while (1) {
+        desenhar_cenario(pos);  // Agora passando o valor diretamente
+        
+        if (read(STDIN_FILENO, &c, 1) == 1) {
+            if (c == 'a' && pos > 0) pos--;
+            if (c == 'd' && pos < 11) pos++;
+            if (c == 27) break;
         }
-
-        if (timerTimeOver()) {
-            limpaPosicao(obstX, obstY);
-            obstY++;
-
-            if (colidiu()) {
-                screenSetColor(RED, BLACK);
-                screenGotoxy(30, 12);
-                printf("GAME OVER!");
-                screenGotoxy(30, 13);
-                printf("Pontuação: %d", pontos);
-                break;
-            }
-
-            if (obstY >= carY) {
-                pontos++;
-                if (pontos % 5 == 0 && velocidade > 10) velocidade -= 5; // aumenta dificuldade
-                novoObstaculo();
-                timerInit(velocidade);
-            }
-
-            desenhaObstaculo();
-            desenhaPontuacao();
-            screenUpdate();
-        }
+        
+        usleep(100000);
     }
-
-    keyboardDestroy();
-    screenDestroy();
-    timerDestroy();
+    
+    printf("\nJogo encerrado!\n");
     return 0;
 }

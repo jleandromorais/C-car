@@ -6,5 +6,6 @@
 
 // Interface da função principal
 int ControleCar_run();
+void desenhar_cenario();
 
 #endif

@@ -40,7 +40,7 @@ CESAR School
    ```bash
    git clone https://github.com/seu-usuario/c-car.git
    cd c-car
-````
+```
 
 2. Baixe a CLI-lib:
 

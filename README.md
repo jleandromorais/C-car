@@ -10,6 +10,7 @@
 - Leandro Moraes(@jleandromoraes)
 - Levi Moura (@colega3)
 - Enzo Antuña (@colega4)
+- Kayky Dias (@colega5)
 
 ---
 
@@ -67,11 +68,15 @@ CESAR School
 
 **C-CAR** é um jogo em modo texto onde o jogador controla um carro que precisa **desviar de pedras** que caem do topo da tela. Com o passar do tempo, o jogo fica **mais rápido** e mais obstáculos aparecem. O objetivo é **sobreviver o máximo possível**, acumulando pontos.
 
+Agora, o jogo também possui **frutinhas especiais**:  
+🍓 **Se o carro pegar uma frutinha, a pontuação é dobrada por 5 segundos**!
+
 ### 🎯 Regras:
 
 * Você perde se colidir com uma pedra.
 * A cada segundo sobrevivido, sua pontuação aumenta.
 * A dificuldade do jogo (velocidade e quantidade de pedras) aumenta conforme o tempo passa.
+* Ao pegar uma frutinha, seus pontos serão **dobrados por 5 segundos**.
 
 ### ⌨️ Controles:
 

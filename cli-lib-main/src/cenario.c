@@ -1,50 +1,52 @@
 #include "../include/cenario.h"
+#include "../include/screen.h"  // Inclua a nova biblioteca
 #include <stdio.h>
 #include <stdlib.h>
+  
 
-void limpar_tela() {
-    #ifdef _WIN32
-    system("cls");
-    #else
-    system("clear");
-    #endif
-}
+#define SCRWIDTH 80    // ou 100, conforme desejar
+#define SCRHEIGHT 25 
 
 void desenhar_cenario(int posicao) {
-    limpar_tela();
-    
-    // Desenha as 4 primeiras linhas da pista
-    for (int i = 0; i < 4; i++) {
-        printf("||          ||          ||          ||\n");
+    screenClear();
+    screenDrawBorders();
+
+    int largura_cenario = 45;
+    int altura_cenario = 20;
+    int x_inicio = (SCRWIDTH - largura_cenario) / 2;
+    int y_inicio = (SCRHEIGHT - altura_cenario) / 2;
+
+    screenSetColor(LIGHTGRAY, BLACK);
+
+    // Desenha as primeiras 10 linhas (acima do carro)
+    for (int i = 0; i < 10; i++) {  // Aumentado de 7 para 10
+        screenGotoxy(x_inicio, y_inicio + i);
+        printf(" ||    |     ||     |    ||     |    ||");
     }
 
-    // Linha do carro - SEMPRE VISÍVEL
-    printf("  "); // Espaço inicial
-    for (int i = 0; i < 36; i++) {
-        // Verifica se é posição do carro
-        if (i >= posicao*3 && i <= posicao*3+1) {
-            // Se estiver sobre uma faixa (posições 2,3,6,7,10,11)
-            if (i % 12 == 0 || i % 12 == 1) {
-                printf("CC"); // SOBREPÕE a faixa
-                i++; // Pula próximo caractere
-            } else {
-                printf("CC"); // Fora da faixa
-                i++; // Pula próximo caractere
-            }
+    // Linha do carro (agora na 11ª linha)
+    screenGotoxy(x_inicio, y_inicio + 10);  // Mudado para +10 (11ª linha)
+    printf(" ");
+    for (int i = 0; i < largura_cenario; i++) {
+        if (i >= posicao * 3 && i <= posicao * 3 + 1) {
+    
+            printf("\xF0\x9F\x9A\x97");
+            screenSetColor(LIGHTGRAY, BLACK);
+            i++;
         } 
-        // Desenha faixas normais
-        else if ( i % 36==1||i % 36==0) {
+        else if (i % 12 == 1 || i % 12 == 0|| i==6) {
             printf("|");
         } 
-        // Espaço vazio
         else {
             printf(" ");
         }
     }
-    printf("\n");
 
-    // Desenha as 2 últimas linhas
-    for (int i = 0; i < 2; i++) {
-        printf("||          ||          ||          ||\n");
+    // Restante das linhas (abaixo do carro)
+    for (int i = 0; i < 8; i++) {  // Reduzido para 3 linhas para manter o total
+        screenGotoxy(x_inicio, y_inicio + 11 + i);
+        printf(" ||    |     ||     |    ||     |    ||");
     }
+
+    screenUpdate();
 }

@@ -178,4 +178,15 @@ void screenGotoxy(int x, int y);
 */
 void screenSetColor(screenColor fg, screenColor bg);
 
+
+/**
+ * Update screen immediately
+*/
+void screenUpdate(void);
+
+/**
+ * Draw borders around the screen
+*/ 
+void screenDrawBorders(void);
+
 #endif /* __SCREEN_H__ */

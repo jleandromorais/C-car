@@ -1,16 +1,16 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
-SRC_DIR = src
-BIN_DIR = bin
-EXEC = jogo_carro
+SRC = src/main.c src/cenario.c src/tela.c src/screen.c
+OBJ = $(SRC:.c=.o)
+TARGET = bin/jogo_carro
 
-all: $(BIN_DIR)/$(EXEC)
+all: $(TARGET)
 
-$(BIN_DIR)/$(EXEC): $(SRC_DIR)/main.c $(SRC_DIR)/cenario.c
-	mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $^ -o $@
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BIN_DIR)
-
-.PHONY: all clean
+	rm -f $(OBJ) $(TARGET)

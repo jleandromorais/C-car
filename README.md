@@ -37,12 +37,14 @@ CESAR School
 ### Passo a passo:
 
 1. Clone este repositório:
+
    ```bash
    git clone https://github.com/seu-usuario/c-car.git
    cd c-car
-```
+   ```
 
 2. Baixe a CLI-lib:
+
    ```bash
    git submodule add https://github.com/tgfb/cli-lib.git
    ```

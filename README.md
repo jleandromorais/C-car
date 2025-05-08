@@ -39,8 +39,8 @@ CESAR School
 1. Clone este repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/c-clib
-   cd c-car
+   git clone https://github.com/jleandromorais/clin-lib-main
+   cd clin-lib-main
    ```
 
 2. Baixe a CLI-lib:

@@ -33,7 +33,7 @@ void desenhar_cenario(int posicao) {
             }
         } 
         // Desenha faixas normais
-        else if ( i % 36==1||i==1 ||i==4 ||i==5 ||i==36||i==35 ||i==34) {
+        else if ( i % 36==1||i % 36==0) {
             printf("|");
         } 
         // Espaço vazio

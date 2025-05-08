@@ -39,7 +39,7 @@ CESAR School
 1. Clone este repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/c-car.git
+   git clone https://github.com/seu-usuario/c-clib
    cd c-car
    ```
 

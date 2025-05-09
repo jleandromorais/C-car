@@ -16,9 +16,9 @@ void desenhar_cenario(int posicao,float tempo) {
     
     screenSetColor(YELLOW,BLACK);
     screenGotoxy(SCRWIDTH-15,1);
- int minutos = abs((int)(tempo / 60));
-int segundos = abs((int)fmod(tempo, 60));
-printf("Tempo: %02d:%02d\n", minutos, segundos);
+int minutos = abs((int)(tempo / 60));
+int segundos = abs((int)tempo % 60); // Alterado para %
+printf("Seu Tempo: %02d:%02d", minutos, segundos); // Sem \n
 
     int largura_cenario = 45;
     int altura_cenario = 20;

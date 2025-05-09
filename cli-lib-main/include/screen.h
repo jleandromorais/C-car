@@ -161,7 +161,7 @@ void screenInit(int drawBorders);
 /**
  * Clear the screen and restores to initial state.
 */
-void screenDestroy();
+void screenDestroy(void);
 
 /**
  * Move cursor to position (x,y)
@@ -182,7 +182,7 @@ void screenSetColor(screenColor fg, screenColor bg);
 /**
  * Update screen immediately
 */
-void screenUpdate(void);
+//void screenUpdate(void);
 
 /**
  * Draw borders around the screen

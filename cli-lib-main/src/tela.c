@@ -30,8 +30,7 @@ void mostrar_titulo() {
 }
 
 void mostrar_menu_inicio(Jogador *jogador) {
-    screenInit(1);  // Inicializa a tela com bordas
-    
+    screenInit(1);  
     mostrar_titulo();
     
     screenSetColor(CYAN, BLACK);
@@ -52,9 +51,11 @@ void mostrar_menu_inicio(Jogador *jogador) {
     screenGotoxy(SCRSTARTX + 5, SCRSTARTY + 5);
     printf("NOME DO JOGADOR: ");
     
-    fgets(jogador->nome, 50, stdin);
-    jogador->nome[strcspn(jogador->nome, "\n")] = '\0';
-
+    // Correção principal aqui:
+    fgets(jogador->nome, 21, stdin); // Limita a 20 caracteres + '\0'
+    jogador->nome[strcspn(jogador->nome, "\n")] = '\0'; // Remove a quebra de linha
+    jogador->nome[20] = '\0'; // Garante terminação mesmo se o nome for muito longo
+    
     enable_raw_mode();
     screenClear();
 }

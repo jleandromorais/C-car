@@ -28,12 +28,12 @@ void timerUpdateTimer(int valueMilliSec)
     delay = valueMilliSec;
     gettimeofday(&timer, NULL);
 }
-
-int getTimeDiff()
-{
+// Em timer.c
+long long getTimeDiff() {
     gettimeofday(&now, NULL);
-    long diff = (((now.tv_sec - timer.tv_sec) * 1000000) + now.tv_usec - timer.tv_usec)/1000;
-    return (int) diff;
+    long long now_ms = now.tv_sec * 1000LL + now.tv_usec / 1000;
+    long long timer_ms = timer.tv_sec * 1000LL + timer.tv_usec / 1000;
+    return now_ms - timer_ms; // Diferença absoluta em milissegundos
 }
 
 int timerTimeOver()
@@ -43,7 +43,7 @@ int timerTimeOver()
     if (getTimeDiff() > delay)
     {
         ret = 1;
-        gettimeofday(&timer, NULL);
+       // gettimeofday(&timer, NULL);
     }
 
     return ret;
@@ -51,5 +51,6 @@ int timerTimeOver()
 
 void timerPrint()
 {
-    printf("Timer:  %d", getTimeDiff());
+    printf("Timer: %lld", getTimeDiff());
+
 }

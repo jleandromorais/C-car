@@ -2,14 +2,23 @@
 #include "../include/screen.h"  // Inclua a nova biblioteca
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
   
 
 #define SCRWIDTH 80    // ou 100, conforme desejar
 #define SCRHEIGHT 25 
 
-void desenhar_cenario(int posicao) {
+void desenhar_cenario(int posicao,float tempo) {
     screenClear();
     screenDrawBorders();
+
+
+    
+    screenSetColor(YELLOW,BLACK);
+    screenGotoxy(SCRWIDTH-15,1);
+ int minutos = abs((int)(tempo / 60));
+int segundos = abs((int)fmod(tempo, 60));
+printf("Tempo: %02d:%02d\n", minutos, segundos);
 
     int largura_cenario = 45;
     int altura_cenario = 20;

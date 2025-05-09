@@ -3,6 +3,6 @@
 
 void cenarioInit();
 void cenarioDestroy();
-void desenhar_cenario(int posicao_carro);
+void desenhar_cenario(int posicao_carro,float tempo);
 
 #endif

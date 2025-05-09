@@ -6,7 +6,7 @@ void enable_raw_mode();
 void disable_raw_mode();
 
 typedef struct {
-    char nome[50];
+    char nome[21];
 } Jogador;
 
 void mostrar_titulo();

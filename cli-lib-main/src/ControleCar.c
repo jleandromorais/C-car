@@ -1,55 +1,51 @@
+#include "../include/controleCar.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
-#include "ControleCar.h"
-#include "screen.h"    // Supondo que existe para screenGotoxy()
-#include "keyboard.h"  // Para keyboardInit(), keyhit(), etc.
+#include <math.h>
 
-// Variáveis globais do cenário
-#define PISTA_WIDTH 20
-#define NUM_PISTAS 3
-static int carX = 10;  // Posição inicial do carro
-static int carY = 7;   // Linha do carro (ajustada para o cenário)
-
-// Desenha o cenário completo com pistas
-static void desenhaCenario() {
-    printf("\033[H\033[J");  // Limpa o terminal
+EstadoJogo inicializar_jogo() {
+    EstadoJogo estado;
+    estado.posicao = 5;  // Posição inicial
+    estado.tempo_decorrido = 0;
     
-    // Desenha as pistas (linhas verticais)
-    for (int y = 0; y < 10; y++) {
-        for (int pista = 0; pista < NUM_PISTAS; pista++) {
-            printf("||");
-            // Espaço entre as pistas (onde o carro se move)
-            for (int x = 0; x < PISTA_WIDTH; x++) {
-                if (y == carY && x == carX && pista == 1) {
-                    printf("CC");  // Desenha o carro na pista central
-                } else {
-                    printf(" ");
-                }
-            }
+    mostrar_menu_inicio(&estado.jogador);
+    printf("Bem-vindo, %s!\n", estado.jogador.nome);
+    printf("Controles: A (esquerda), D (direita), ESC (sair)\n");
+    sleep(1);
+    
+    timerInit(1000);  // Inicializa o timer
+    return estado;
+}
+
+void executar_jogo_principal(EstadoJogo *estado) {
+    char c;
+    
+    while (1) {
+        system("clear");
+        
+        // Atualiza tempo
+        estado->tempo_decorrido = getTimeDiff() / 1000.0f; // Converte para segundos
+estado->tempo_decorrido = fmaxf(estado->tempo_decorrido, 0.0f); // Garante ≥ 0
+    printf("Tempo: %02d:%02d\n",
+       (int)(estado->tempo_decorrido) / 60,
+       (int)fmod(estado->tempo_decorrido, 60));
+
+        
+        desenhar_cenario(estado->posicao,estado->tempo_decorrido);
+
+        if (read(STDIN_FILENO, &c, 1) == 1) {
+            if (c == 'a' && estado->posicao > 0) estado->posicao--;
+            if (c == 'd' && estado->posicao < 11) estado->posicao++;
+            if (c == 27) break;  // ESC
         }
-        printf("||\n");
+
+        usleep(100000);
     }
 }
 
-// Função principal
-int ControleCar_run() {
-    keyboardInit();
-    
-    while (1) {
-        desenhaCenario();
-        
-        if (keyhit()) {
-            int ch = readch();
-            
-            // Lógica de movimento (igual à sua versão original)
-            if (ch == 'a' && carX > 0) carX--;
-            if (ch == 'd' && carX < PISTA_WIDTH-2) carX++;
-            if (ch == 27) break;  // ESC sai
-        }
-        
-        usleep(100000);  // 100ms
-    }
-    
-    keyboardDestroy();
-    return 0;
+void finalizar_jogo(EstadoJogo *estado) {
+    printf("\nTempo total de jogo: %.2f segundos\n", estado->tempo_decorrido);
+    printf("Obrigado por jogar, %s!\n", estado->jogador.nome);
+    timerDestroy();
 }

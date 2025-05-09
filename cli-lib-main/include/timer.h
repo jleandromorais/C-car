@@ -6,7 +6,7 @@
 */
 
 void timerInit(int valueMilliSec);
-
+long long getTimeDiff();
 void timerDestroy();
 
 void timerUpdateTimer(int valueMilliSec);

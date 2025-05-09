@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
-SRC = src/main.c src/cenario.c src/tela.c src/screen.c
+SRC = src/main.c src/cenario.c src/tela.c src/screen.c src/timer.c  # Adicionei timer.c aqui
 OBJ = $(SRC:.c=.o)
 TARGET = bin/jogo_carro
 

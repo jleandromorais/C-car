@@ -72,6 +72,7 @@ CESAR School
 Agora, o jogo também possui **frutinhas especiais**:  
 🍓 **Se o carro pegar uma frutinha, a pontuação é dobrada por 5 segundos**!
 
+
 ### 🎯 Regras:
 
 * Você perde se colidir com uma pedra.
@@ -83,7 +84,7 @@ Agora, o jogo também possui **frutinhas especiais**:
 
 * `A`: Move o carro para a esquerda
 * `D`: Move o carro para a direita
-* `Q`: Sai do jogo
+* `ESC`: Sai do jogo
 
 ---
 

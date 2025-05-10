@@ -8,6 +8,7 @@ typedef struct {
     int posicao;
     float tempo_decorrido;
     Jogador jogador;
+    Jogador score;
 } EstadoJogo;
 
 EstadoJogo inicializar_jogo();

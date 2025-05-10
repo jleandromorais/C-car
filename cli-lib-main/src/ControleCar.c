@@ -26,25 +26,33 @@ void executar_jogo_principal(EstadoJogo *estado) {
         system("clear");
         
         // Atualiza tempo
-        estado->tempo_decorrido = getTimeDiff() / 1000.0f; // Converte para segundos
-estado->tempo_decorrido = fmaxf(estado->tempo_decorrido, 0.0f); // Garante ≥ 0
-  
-
+        estado->tempo_decorrido = getTimeDiff() / 1000.0f;
+        estado->tempo_decorrido = fmaxf(estado->tempo_decorrido, 0.0f);
         
-        desenhar_cenario(estado->posicao,estado->tempo_decorrido);
+
+        //Pontução
+        if (estado->tempo_decorrido<15)
+        {
+            estado->jogador.score=(int)(estado->tempo_decorrido*5);
+        }
+        else{
+             estado->jogador.score=(int)(estado->tempo_decorrido*10);
+        }
+       
+        desenhar_cenario(estado->posicao, estado->tempo_decorrido,estado->jogador.score);
 
         if (read(STDIN_FILENO, &c, 1) == 1) {
-            if (c == 'a' && estado->posicao > 0) estado->posicao--;
-            if (c == 'd' && estado->posicao < 11) estado->posicao++;
-            if (c == 27) break;  // ESC
+            if (c == 'a' && estado->posicao > 0) estado->posicao--; // Move para esquerda
+            if (c == 'd' && estado->posicao < 5) estado->posicao++; // Move para direita
+            if (c == 27) break;  // Tecla ESC para sair
         }
 
-        usleep(100000);
+        usleep(100000); // Pequeno delay para suavizar o movimento
     }
 }
-
 void finalizar_jogo(EstadoJogo *estado) {
     printf("\nTempo total de jogo: %.2f segundos\n", estado->tempo_decorrido);
+    printf("\n Sua pontuacao foi de: %03d\n",estado->jogador.score );
     printf("Obrigado por jogar, %s!\n", estado->jogador.nome);
     timerDestroy();
 }

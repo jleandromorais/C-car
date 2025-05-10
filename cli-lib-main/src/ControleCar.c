@@ -28,9 +28,7 @@ void executar_jogo_principal(EstadoJogo *estado) {
         // Atualiza tempo
         estado->tempo_decorrido = getTimeDiff() / 1000.0f; // Converte para segundos
 estado->tempo_decorrido = fmaxf(estado->tempo_decorrido, 0.0f); // Garante ≥ 0
-   printf("Tempo: %02d:%02d\n",
-           (int)(estado->tempo_decorrido) / 60,
-           (int)estado->tempo_decorrido % 60); 
+  
 
         
         desenhar_cenario(estado->posicao,estado->tempo_decorrido);

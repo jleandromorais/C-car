@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define SCRWIDTH 80
-#define SCRHEIGHT 25
+#define SCRWIDTH  80
+#define SCRHEIGHT 28
 
 void desenhar_cenario(int posicao, float tempo, int score) {
     // Garante que a posição esteja entre 0 e 5 (6 posições)

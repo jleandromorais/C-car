@@ -51,8 +51,9 @@ void executar_jogo_principal(EstadoJogo *estado) {
     }
 }
 void finalizar_jogo(EstadoJogo *estado) {
+    printf("\n");
     printf("\nTempo total de jogo: %.2f segundos\n", estado->tempo_decorrido);
-    printf("\n Sua pontuacao foi de: %03d\n",estado->jogador.score );
+    printf(" Sua pontuacao foi de: %03d\n",estado->jogador.score );
     printf("Obrigado por jogar, %s!\n", estado->jogador.nome);
     timerDestroy();
 }

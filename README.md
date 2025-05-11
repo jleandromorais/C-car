@@ -7,7 +7,7 @@
 ## 👥 Integrantes do Projeto
 
 - Gabriel Souza (@06gabrielsouza)
-- Leandro Moraes(@jleandromorais)
+- Leandro Moraes([@jleandromorais](https://github.com/jleandromorais))
 - Levi Moura (@LeviMoraesMoura)
 - Enzo Antuña (@Enzo-Antuna)
 - Kayky Dias (@kaykyDias04)

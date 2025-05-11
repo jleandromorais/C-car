@@ -8,9 +8,9 @@
 
 - Gabriel Souza (@06gabrielsouza)
 - Leandro Moraes(@jleandromorais)
-- Levi Moura (@colega3)
-- Enzo Antuña (@colega4)
-- Kayky Dias (@colega5)
+- Levi Moura (@LeviMoraesMoura)
+- Enzo Antuña (@Enzo-Antuna)
+- Kayky Dias (@kaykyDias04)
 
 ---
 

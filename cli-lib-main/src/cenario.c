@@ -36,13 +36,13 @@ void desenhar_cenario(int posicao, float tempo, int score) {
     const char *modelo_pista = "||      |     ||     |     ||     |     ||";
 
     // Desenha as 10 linhas superiores
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 7; i++) {
         screenGotoxy(x_inicio, y_inicio + i);
         printf("%s", modelo_pista);
     }
 
     // Desenha a linha do carro (com emoji)
-    screenGotoxy(x_inicio, y_inicio + 10);
+    screenGotoxy(x_inicio, y_inicio + 7);
     printf("%s", modelo_pista); // Desenha a pista primeiro
 
     // Posições X válidas para o carro (6 posições)
@@ -50,12 +50,12 @@ void desenhar_cenario(int posicao, float tempo, int score) {
     int x_carro = x_inicio + posicoes_validas[posicao];
 
     // Posiciona o carro
-    screenGotoxy(x_carro, y_inicio + 10);
+    screenGotoxy(x_carro, y_inicio + 7);
     printf("\xF0\x9F\x9A\x97"); // Emoji do carro (2 caracteres)
 
     // Desenha as 8 linhas inferiores
-    for (int i = 0; i < 8; i++) {
-        screenGotoxy(x_inicio, y_inicio + 11 + i);
+    for (int i = 0; i < 4; i++) {
+        screenGotoxy(x_inicio, y_inicio + 8 + i);
         printf("%s", modelo_pista);
     }
 

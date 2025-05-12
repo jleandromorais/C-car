@@ -10,8 +10,9 @@ EstadoJogo inicializar_jogo() {
     estado.posicao = 5;  // Posição inicial
     estado.tempo_decorrido = 0;
     
-    mostrar_menu_inicio(&estado.jogador);
-    printf("Bem-vindo, %s!\n", estado.jogador.nome);
+    Jogador jogador;
+    mostrar_menu_inicio(&jogador);
+    printf("Bem-vindo, %s!\n",jogador.nome);
     printf("Controles: A (esquerda), D (direita), ESC (sair)\n");
     sleep(1);
     

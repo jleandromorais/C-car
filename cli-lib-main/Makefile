@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 LDFLAGS = -lm
-SRC = src/main.c src/cenario.c src/tela.c src/screen.c src/timer.c src/ControleCar.c  # Adicione controleCar.c
+SRC = src/main.c src/cenario.c src/tela.c src/screen.c src/timer.c src/ControleCar.c  src/cereja.c
 OBJ = $(SRC:.c=.o)
 TARGET = bin/jogo_carro
 

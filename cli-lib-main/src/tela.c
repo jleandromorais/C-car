@@ -9,22 +9,12 @@ void mostrar_titulo() {
     screenClear();
     screenSetColor(YELLOW, BLACK);  // Configura cor para o título
     
-    printf("\n\n");   
-    printf("         XXXXX    XXXXX     XXXX     XXXXX       XXXX       XXXXX     \n");
-    printf("            XX   XX   XX   XX       XX   XX      XX   X    XX   XX    \n");
-    printf("            XX   XX   XX   XX       XX   XX      XX    X   XX   XX    \n");
-    printf("            XX   XX   XX   XX       XX   XX      XX    X   XXXXXXX    \n");
-    printf("            XX   XX   XX   XX  XX   XX   XX      XX    X   XX   XX    \n");
-    printf("        X   XX   XX   XX   XX   X   XX   XX      XX   X    XX   XX    \n");
-    printf("         XXXX     XXXXX     XXXX     XXXXX       XXXX      XX   XX    \n");
-    printf("\n");    
-    printf("              XXXXX      XX    XXXXX     XX      XX   XXXXXXX          \n");
-    printf("              XX  XX     XX   XX   XX    XX      XX   XX               \n");
-    printf("              XX   XX    XX   XX   XX    XX      XX   XX               \n");
-    printf("              XX    XX   XX   XXXXXXX     XX    XX    XXXXX            \n");
-    printf("              XX     XX  XX   XX   XX      XX  XX     XX               \n");
-    printf("              XX      XX XX   XX   XX       XXXX      XX               \n");
-    printf("              XX      XXXXX   XX   XX        XX       XXXXXXX          \n");
+    printf("         ██████╗  ═══   ██████╗  █████╗  ██████╗\n");
+    printf("        ██╔════╝       ██╔═══╗  ██╔══██╗██╔══██╗\n");
+    printf("        ██║            ██║   ║  ███████║██████╔╝\n");
+    printf("        ██║            ██║   ║  ██╔══██║██╔══██╗\n");
+    printf("        ╚██████╗       ╚██████╔╝██║  ██║██║  ██║\n");
+    printf("         ╚═════╝        ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝\n");
     
     screenSetNormal();  // Volta às cores normais
 }

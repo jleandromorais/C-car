@@ -7,47 +7,44 @@
 #include <termios.h>
 
 void mostrar_titulo() {
-    screenClear();
-    screenSetColor(YELLOW, BLACK);  // Configura cor para o título
-    
+    screenSetColor(YELLOW, BLACK);
     printf("         ██████╗  ═══   ██████╗  █████╗  ██████╗\n");
     printf("        ██╔════╝       ██╔═══╗  ██╔══██╗██╔══██╗\n");
     printf("        ██║            ██║   ║  ███████║██████╔╝\n");
     printf("        ██║            ██║   ║  ██╔══██║██╔══██╗\n");
     printf("        ╚██████╗       ╚██████╔╝██║  ██║██║  ██║\n");
     printf("         ╚═════╝        ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝\n");
-    
-    screenSetNormal();  // Volta às cores normais
+    screenSetNormal();
 }
 
 void mostrar_menu_inicio(Jogador *jogador) {
-    screenInit(1);  
+    // 1. Configuração inicial
+    disable_raw_mode();  // Permite entrada normal do teclado
+    system("clear");     // Limpa a tela
+
+    // 2. Mostra o título ASCII
     mostrar_titulo();
-    
-    screenSetColor(CYAN, BLACK);
-    screenGotoxy(SCRSTARTX + 10, SCRSTARTY + 10);
-    printf("PRESSIONE Enter PARA COMECAR");
-    fflush(stdout);
 
-    // Desativa modo raw ANTES da leitura de teclado
-    disable_raw_mode(); 
+    // 3. Mostra instrução e já posiciona para digitar
+    printf("\n\n\033[36mDIGITE SEU NOME: \033[0m");  // Mensagem em ciano
+    fflush(stdout);  // Garante que a mensagem apareça antes da leitura
 
-    while (getchar() != '\n');  // Espera Enter
-
-    screenClear();
-    screenGotoxy(SCRSTARTX + 5, SCRSTARTY + 5);
-    printf("NOME DO JOGADOR: ");
-    fflush(stdout);
-
-    if (fgets(jogador->nome, 21, stdin) == NULL) {
-        strcpy(jogador->nome, "Jogador");  // Nome padrão
+    // 4. Lê o nome do jogador
+    char buffer[21];
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        // Remove o '\n' final e armazena no jogador
+        buffer[strcspn(buffer, "\n")] = '\0';
+        strncpy(jogador->nome, buffer, 20);
+        jogador->nome[20] = '\0';  // Garante terminação nula
+    } else {
+        strcpy(jogador->nome, "Jogador");  // Nome padrão se falhar
     }
 
-    jogador->nome[strcspn(jogador->nome, "\n")] = '\0';
-    jogador->nome[20] = '\0';
+    // 5. Mensagem para continuar (opcional)
+    printf("\n\033[32mPRESSIONE ENTER PARA COMECAR...\033[0m");
+    while (getchar() != '\n');  // Espera Enter
 
-    screenClear();
-
-    // Só reativa modo raw depois que terminou toda entrada
-    enable_raw_mode();  
+    // 6. Prepara para o jogo
+    enable_raw_mode();  // Reativa modo raw para o jogo
+    system("clear");    // Limpa a tela
 }

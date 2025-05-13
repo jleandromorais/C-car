@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 LDFLAGS = -lm
-SRC = src/main.c src/cenario.c src/tela.c src/screen.c src/timer.c src/ControleCar.c  src/cereja.c
+SRC = src/main.c src/cenario.c src/tela.c src/screen.c src/timer.c src/ControleCar.c  src/cereja.c src/obstaculo.c
 OBJ = $(SRC:.c=.o)
 TARGET = bin/jogo_carro
 

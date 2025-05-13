@@ -19,7 +19,7 @@ typedef struct {
 extern const int posicoes_x[MAX_CEREJAS];
 extern Cereja cerejas[MAX_CEREJAS];
 extern int multiplicador_score;
-// Adicione no cabeçalho
+extern float tempo_multiplicador;
 extern float tempo_ultima_cereja;
 
 // Protótipos das funções
@@ -28,5 +28,6 @@ void spawnar_cerejas(void);
 void atualizar_cerejas(float delta_time);
 void desenhar_cerejas(int x_inicio, int y_inicio);
 int verificar_colisao(int posicao_jogador, int y_carro);
+
 
 #endif

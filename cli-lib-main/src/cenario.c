@@ -1,6 +1,7 @@
 #include "../include/cenario.h"
 #include "../include/screen.h"
 #include "../include/cereja.h"
+#include "../include/obstaculo.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -31,9 +32,6 @@ void desenhar_cenario(int posicao, float tempo, int score) {
     screenGotoxy(SCRWIDTH - 15, 2);
     printf("Pontos: %03d", score);
 
-    screenGotoxy(SCRWIDTH - 15, 3);
-    printf("Multiplicador: %dx", multiplicador_score);
-
     // Pista acima do carro
     for(int i = 0; i < 7; i++) {
         screenSetColor(LIGHTGRAY, BLACK);
@@ -41,8 +39,11 @@ void desenhar_cenario(int posicao, float tempo, int score) {
         printf("%s", pista);
     }
 
-    desenhar_cerejas(x_inicio,y_inicio);
 
+    //Cereja
+    desenhar_cerejas(x_inicio,y_inicio);
+    //Obstaculo
+    desenhar_obstaculos(x_inicio,y_inicio);
     // Linha do carro
     screenSetColor(LIGHTGRAY, BLACK);
     screenGotoxy(x_inicio, y_inicio + 7);

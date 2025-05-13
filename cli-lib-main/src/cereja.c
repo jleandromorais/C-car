@@ -7,6 +7,7 @@
 // Posições X pré-definidas (relativas ao início da pista)
 const int posicoes_x[MAX_CEREJAS] = {4, 10, 17, 24, 30, 37};
 
+float tempo_multiplicador = 0.0f;
 Cereja cerejas[MAX_CEREJAS];
 int multiplicador_score = 1;
 
@@ -39,7 +40,7 @@ void spawnar_cerejas(void) {
     
     if(coluna_livre != -1) {
         cerejas[coluna_livre].posicaoY = 0;
-        cerejas[coluna_livre].velocidade = 0.3f; // Velocidade fixa
+        cerejas[coluna_livre].velocidade = 0.1f; // Velocidade fixa
         cerejas[coluna_livre].ativa = 1;
     }
 }
@@ -70,8 +71,7 @@ void desenhar_cerejas(int x_inicio, int y_inicio) {
 
 // Atualize verificar_colisao para usar coordenadas relativas
 int verificar_colisao(int posicao_jogador, int y_carro_relativo) {
-    int colidiu = 0;
-    int x_jogador = posicoes_x[posicao_jogador];  // Já é relativo
+    int x_jogador = posicoes_x[posicao_jogador];
     
     for(int i = 0; i < MAX_CEREJAS; i++) {
         if(cerejas[i].ativa && 
@@ -80,8 +80,9 @@ int verificar_colisao(int posicao_jogador, int y_carro_relativo) {
         {
             cerejas[i].ativa = 0;
             multiplicador_score = 5;
-            colidiu = 1;
+            tempo_multiplicador = 10.0f;  // 10 segundos de duração
+            return 1;  // Retorna verdadeiro para colisão
         }
     }
-    return colidiu;
+    return 0;
 }

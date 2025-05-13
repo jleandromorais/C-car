@@ -30,7 +30,7 @@ float tempo_ultima_cereja = 0.0f;
 void spawnar_cerejas(void) {
     int coluna_livre = -1;
     
-    // Encontra uma coluna disponível
+    // Encontra uma cereja inativa
     for(int i = 0; i < MAX_CEREJAS; i++) {
         if(!cerejas[i].ativa) {
             coluna_livre = i;
@@ -39,12 +39,13 @@ void spawnar_cerejas(void) {
     }
     
     if(coluna_livre != -1) {
+        int pos = rand() % MAX_CEREJAS;  // Sorteia uma posição X válida
+        cerejas[coluna_livre].posicaoX = posicoes_x[pos];
         cerejas[coluna_livre].posicaoY = 0;
-        cerejas[coluna_livre].velocidade = 0.1f; // Velocidade fixa
+        cerejas[coluna_livre].velocidade = 0.1f + (rand() % 40) / 100.0f;  // Velocidade entre 0.1 e 0.5
         cerejas[coluna_livre].ativa = 1;
     }
 }
-// ... (restante do código permanece igual)
 
 void atualizar_cerejas(float delta_time) {
     for(int i = 0; i < MAX_CEREJAS; i++) {

@@ -5,9 +5,13 @@
 #include <math.h>
 #include "../include/cenario.h"
 #include "../include/cereja.h"
+#include "../include/obstaculo.h"  // Inclua o cabeçalho dos obstáculos
+#include "../include/screen.h"  // Certifique-se que esta linha existe
 
-// Variável global para controle do tempo do spawn
-static float ultimo_spawn = 0.0f;
+// Variáveis globais para controle do tempo
+static float ultimo_spawn_cereja = 0.0f;
+static float ultimo_spawn_obstaculo = 0.0f;
+static int jogo_ativo = 1;  // Controle do estado do jogo
 
 EstadoJogo inicializar_jogo() {
     EstadoJogo estado;
@@ -22,8 +26,12 @@ EstadoJogo inicializar_jogo() {
     sleep(1);
     
     timerInit(0);  // Inicializa o timer
-    ultimo_spawn = 0.0f;  // Reseta o temporizador de spawn
+    ultimo_spawn_cereja = 0.0f;
+    ultimo_spawn_obstaculo = 0.0f;
+    jogo_ativo = 1;
+    
     inicializar_cerejas();  // Inicializa o sistema de cerejas
+    inicializar_obstaculos(); // Inicializa o sistema de obstáculos
     
     return estado;
 }
@@ -32,25 +40,37 @@ void executar_jogo_principal(EstadoJogo *estado) {
     char tecla;
     float last_time = getTimeDiff()/1000.0f;
     
-    while(1) {
+    while(jogo_ativo) {
         float current_time = getTimeDiff()/1000.0f;
         float delta_time = current_time - last_time;
         last_time = current_time;
         
         estado->tempo_decorrido = current_time;
         
-        // Sistema de spawn a cada 10 segundos
-        if(current_time - ultimo_spawn >= 10.0f) {
-            spawnar_cerejas();  // Chama sem parâmetros
-            ultimo_spawn = current_time;
+        // Sistema de spawn de cerejas a cada 10 segundos
+        if(current_time - ultimo_spawn_cereja >= 10.0f) {
+            spawnar_cerejas();
+            ultimo_spawn_cereja = current_time;
         }
         
-        // Atualiza sistema de cerejas
+        // Sistema de spawn de obstáculos a cada 5-8 segundos (aleatório)
+        if(current_time - ultimo_spawn_obstaculo >= (5 + rand() % 4)) {
+            spawnar_obstaculo(current_time);
+            ultimo_spawn_obstaculo = current_time;
+        }
+        
+        // Atualiza sistemas
         atualizar_cerejas(delta_time);
+        atualizar_obstaculos(delta_time);
         
         // Verifica colisões
-        if(verificar_colisao(estado->posicao, 7)) { // 7 é a linha Y do carro
+        if(verificar_colisao(estado->posicao, 7)) { // Colisão com cereja
             // Efeito de coleta já está implementado na função verificar_colisao
+        }
+        
+        if(verificar_colisao_obstaculo(estado->posicao, 7)) { // Colisão com obstáculo
+            jogo_ativo = 0; // Termina o jogo
+            break;
         }
         
         // Atualiza pontuação
@@ -58,6 +78,7 @@ void executar_jogo_principal(EstadoJogo *estado) {
                                     (estado->tempo_decorrido < 15 ? 5 : 10)) *
                                     multiplicador_score;
         
+        // Desenha o cenário (que já inclui cerejas e obstáculos)
         desenhar_cenario(estado->posicao, estado->tempo_decorrido, estado->jogador.score);
         
         if(read(STDIN_FILENO, &tecla, 1) == 1) {
@@ -67,6 +88,15 @@ void executar_jogo_principal(EstadoJogo *estado) {
         }
         
         usleep(50000); // 50ms (20 FPS)
+    }
+    
+    // Se o jogo terminou por colisão com obstáculo
+    if(!jogo_ativo) {
+        screenClear();
+        printf("\n\n  GAME OVER!\n");
+        printf("  Voce bateu em um tronco! 🪵\n");
+        printf("  Pontuacao final: %d\n", estado->jogador.score);
+        sleep(3);
     }
 }
 

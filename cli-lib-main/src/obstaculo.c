@@ -21,21 +21,40 @@ void inicializar_obstaculos() {
     }
 }
 
-void spawnar_obstaculo(void) {
-    int coluna_livre = -1;
-    
-    // Encontra uma coluna disponível
-    for(int i = 0; i < MAX_OBSTACULOS; i++) {
-        if(!obstaculos[i].ativa) {
-            coluna_livre = i;
+void spawnar_obstaculo(float tempo_decorrido) {
+    int index_livre = -1;
+
+    for (int i = 0; i < MAX_OBSTACULOS; i++) {
+        if (!obstaculos[i].ativa) {
+            index_livre = i;
             break;
         }
     }
-    
-    if(coluna_livre != -1) {
-        obstaculos[coluna_livre].posicaoY = 0;
-        obstaculos[coluna_livre].velocidade = 0.2f + (rand() % 60)/100.0f;
-        obstaculos[coluna_livre].ativa = 1;
+
+    if (index_livre != -1) {
+        int coluna = rand() % MAX_OBSTACULOS;
+
+        float velocidade_base = 0.1f + (tempo_decorrido * 0.01f);
+        if (velocidade_base > 2.0f) velocidade_base = 2.0f;
+
+        obstaculos[index_livre].posicaoX = posicoes_x_obstaculos[coluna];
+        obstaculos[index_livre].posicaoY = 0;
+        obstaculos[index_livre].velocidade = velocidade_base;
+        obstaculos[index_livre].ativa = 1;
+    }
+
+    // --- Após 40 segundos, chance de cair mais troncos
+    if (tempo_decorrido > 40.0f) {
+        int chance = rand() % 100; // 0 a 99
+
+        // Chance de cair mais 1 tronco: começa em 20% e sobe até 80%
+        int limite_chance = 20 + (int)((tempo_decorrido - 40.0f) * 1.5f);
+        if (limite_chance > 80) limite_chance = 80;
+
+        if (chance < limite_chance) {
+            // Chama recursivamente pra spawnar outro tronco (se houver espaço)
+            spawnar_obstaculo(tempo_decorrido);
+        }
     }
 }
 
@@ -43,8 +62,8 @@ void atualizar_obstaculos(float delta_time) {
     for(int i = 0; i < MAX_OBSTACULOS; i++) {
         if(obstaculos[i].ativa) {
             obstaculos[i].posicaoY += obstaculos[i].velocidade * delta_time * 60;
-            
-            // Se cair abaixo da pista, desativa
+
+            // Se cair fora da tela
             if(obstaculos[i].posicaoY > 20) {
                 obstaculos[i].ativa = 0;
             }
@@ -63,13 +82,13 @@ void desenhar_obstaculos(int x_inicio, int y_inicio) {
 
 int verificar_colisao_obstaculo(int posicao_jogador, int y_carro_relativo) {
     int x_jogador = posicoes_x_obstaculos[posicao_jogador];
-    
+
     for(int i = 0; i < MAX_OBSTACULOS; i++) {
-        if(obstaculos[i].ativa && 
-           (int)obstaculos[i].posicaoY == y_carro_relativo && 
-           obstaculos[i].posicaoX == x_jogador) 
+        if(obstaculos[i].ativa &&
+           (int)obstaculos[i].posicaoY == y_carro_relativo &&
+           obstaculos[i].posicaoX == x_jogador)
         {
-            return 1;  // Retorna verdadeiro para colisão (fim de jogo)
+            return 1;  // Colisão detectada
         }
     }
     return 0;

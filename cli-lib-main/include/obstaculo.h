@@ -16,9 +16,10 @@ extern Obstaculo obstaculos[MAX_OBSTACULOS];
 extern float tempo_ultimo_obstaculo;
 
 void inicializar_obstaculos(void);
-void spawnar_obstaculo(void);
+void spawnar_obstaculo(float tempo_decorrido);
 void atualizar_obstaculos(float delta_time);
 void desenhar_obstaculos(int x_inicio, int y_inicio);
 int verificar_colisao_obstaculo(int posicao_jogador, int y_carro);
+
 
 #endif

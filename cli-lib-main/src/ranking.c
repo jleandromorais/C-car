@@ -1,4 +1,4 @@
-
+/*
 #include "ranking.h"
 #include "screen.h"
 #include "keyboard.h"

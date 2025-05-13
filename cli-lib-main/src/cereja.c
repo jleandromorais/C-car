@@ -60,6 +60,7 @@ void atualizar_cerejas(float delta_time) {
     }
 }
 
+
 void desenhar_cerejas(int x_inicio, int y_inicio) {
     for(int i = 0; i < MAX_CEREJAS; i++) {
         if(cerejas[i].ativa) {

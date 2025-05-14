@@ -7,6 +7,7 @@
 #include "../include/cereja.h"
 #include "../include/obstaculo.h"  // Inclua o cabeçalho dos obstáculos
 #include "../include/screen.h"  // Certifique-se que esta linha existe
+#include <string.h>
 
 // Variáveis globais para controle do tempo
 static float ultimo_spawn_cereja = 0.0f;
@@ -22,6 +23,7 @@ EstadoJogo inicializar_jogo() {
     Jogador jogador;
     mostrar_menu_inicio(&jogador);
     printf("Bem-vindo, %s!\n", jogador.nome);
+    strcpy(estado.jogador.nome, jogador.nome);  
     printf("Controles: A (esquerda), D (direita), ESC (sair)\n");
     sleep(1);
     

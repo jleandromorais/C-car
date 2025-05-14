@@ -11,6 +11,12 @@ typedef struct {
     Jogador score;
 } EstadoJogo;
 
+// Adicione junto com as outras definições
+typedef struct {
+    char nome[20];
+    int score;
+} RankingEntry;
+
 EstadoJogo inicializar_jogo();
 void executar_jogo_principal(EstadoJogo *estado);
 void finalizar_jogo(EstadoJogo *estado);

@@ -1,82 +1,101 @@
-/*
 #include "ranking.h"
 #include "screen.h"
-#include "keyboard.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define TOP_LIMIT 20
+void salvar_score(const char *nome, int score) {
+    RankingEntry entry;
+    strncpy(entry.nome, nome, 20);
+    entry.nome[19] = '\0'; // Garante terminação nula
+    entry.score = score;
 
-void loadScores(PlayerScore scores[], int *count) {
-    FILE *file = fopen("scores.txt", "r");
-    if (!file) {
-        return;
-    }
-
-    *count = 0;
-    while (fscanf(file, "%20[^|] | %d\n", scores[*count].name, &scores[*count].score) == 2) {
-        (*count)++;
-        if (*count >= MAX_PLAYERS) break;
-    }
-
-    fclose(file);
-}
-
-void sortScores(PlayerScore scores[], int count) {
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = i + 1; j < count; j++) {
-            if (scores[i].score < scores[j].score) {
-                PlayerScore temp = scores[i];
-                scores[i] = scores[j];
-                scores[j] = temp;
-            }
-        }
+    FILE *arquivo = fopen(ARQUIVO_RANKING, "ab");
+    if(arquivo) {
+        fwrite(&entry, sizeof(RankingEntry), 1, arquivo);
+        fclose(arquivo);
     }
 }
 
-void showRanking() {
-    PlayerScore scores[MAX_PLAYERS];
-    int count;
-    int top;
-    loadScores(scores, &count);
-    screenClear();
-    screenSetColor(WHITE, BLACK);
+void carregar_ranking(RankingEntry ranking[]) {
+    // Inicializa o array
+    memset(ranking, 0, MAX_RANKING * sizeof(RankingEntry));
+    
+    FILE *arquivo = fopen(ARQUIVO_RANKING, "rb");
+    if(!arquivo) return;
 
-    screenDrawBorders();
-
-    screenGotoxy(SCRSTARTX + 35, SCRSTARTY + 5);
-    screenPrintCenter("=== RANKING 🏆 ===");
-
-    if (count == 0) {
-        screenGotoxy(SCRSTARTX + 29, SCRSTARTY + 12);
-        screenPrintCenter("Nenhuma pontuação disponível.");
-    } else {
-        sortScores(scores, count);
-        top = count < TOP_LIMIT ? count : TOP_LIMIT;
-
-        for (int i = 0; i < top; i++) {
-            screenGotoxy(SCRSTARTX + 29, SCRSTARTY + 12 + i);
-            char rankingEntry[60];
-
-            if (i == 0) {
-                snprintf(rankingEntry, sizeof(rankingEntry), "%d. 🥇 %s- %d pontos", i + 1, scores[i].name, scores[i].score);
-            } else if (i == 1) {
-                snprintf(rankingEntry, sizeof(rankingEntry), "%d. 🥈 %s- %d pontos", i + 1, scores[i].name, scores[i].score);
-            } else if (i == 2) {
-                snprintf(rankingEntry, sizeof(rankingEntry), "%d. 🥉 %s- %d pontos", i + 1, scores[i].name, scores[i].score);
+    RankingEntry temp;
+    int count = 0;
+    
+    // Lê todas as entradas do arquivo
+    while(fread(&temp, sizeof(RankingEntry), 1, arquivo) && count < MAX_RANKING * 2) {
+        // Adiciona apenas se tiver score válido
+        if(temp.score > 0) {
+            // Mantém apenas as MAX_RANKING melhores entradas na memória
+            if(count < MAX_RANKING) {
+                ranking[count++] = temp;
             } else {
-                snprintf(rankingEntry, sizeof(rankingEntry), "%d. %s- %d pontos", i + 1, scores[i].name, scores[i].score);
+                // Encontra o menor score no ranking atual
+                int menor_idx = 0;
+                for(int i = 1; i < MAX_RANKING; i++) {
+                    if(ranking[i].score < ranking[menor_idx].score) {
+                        menor_idx = i;
+                    }
+                }
+                // Substitui se o novo score for maior
+                if(temp.score > ranking[menor_idx].score) {
+                    ranking[menor_idx] = temp;
+                }
             }
+        }
+    }
+    fclose(arquivo);
 
-            screenPrintCenter(rankingEntry);
+    // Ordena o ranking (bubble sort melhorado)
+    for(int i = 0; i < MAX_RANKING-1; i++) {
+        for(int j = 0; j < MAX_RANKING-i-1; j++) {
+            if(ranking[j].score < ranking[j+1].score) {
+                RankingEntry temp = ranking[j];
+                ranking[j] = ranking[j+1];
+                ranking[j+1] = temp;
+            }
+        }
+    }
+}
+
+void exibir_ranking() {
+    system("clear");
+    mostrar_titulo(); // Reutiliza a função de título do jogo
+    
+    RankingEntry ranking[MAX_RANKING] = {0};
+    carregar_ranking(ranking);
+
+    screenSetColor(CYAN, BLACK);
+    printf("\n  === TOP 10 SCORES ===\n\n");
+    screenSetNormal();
+
+    for(int i = 0; i < MAX_RANKING; i++) {
+        if(ranking[i].score > 0) {
+            screenSetColor(YELLOW, BLACK);
+            printf("  %2d. ", i+1);
+            screenSetColor(WHITE, BLACK);
+            printf("%-20s ", ranking[i].nome);
+            screenSetColor(GREEN, BLACK);
+            printf("%5d pts\n", ranking[i].score);
+            screenSetNormal();
+        } else {
+            printf("  %2d. ---\n", i+1);
         }
     }
 
-    screenGotoxy(SCRSTARTX + 20, SCRSTARTY + 14 + (top > 0 ? top : 1));
-    screenPrintCenter("Pressione qualquer tecla para voltar ao menu principal.");
-    screenUpdate();
-
-    readch();
+    printf("\n");
+    screenSetColor(BLUE, BLACK);
+    printf("Pressione Enter para voltar...");
+    screenSetNormal();
+    fflush(stdout);
+    
+    // Limpa o buffer de entrada antes de esperar
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+    while(getchar() != '\n'); // Espera Enter
 }
-*/

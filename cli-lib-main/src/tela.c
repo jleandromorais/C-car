@@ -1,5 +1,6 @@
-#include "tela.h"
-#include "screen.h"  // Incluir a biblioteca screen
+#include "../include/tela.h"
+#include "../include/screen.h"  // Incluir a biblioteca screen
+#include "../include/ranking.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,8 +42,33 @@ void mostrar_menu_inicio(Jogador *jogador) {
     }
 
     // 5. Mensagem para continuar (opcional)
-    printf("\n\033[32mPRESSIONE ENTER PARA COMECAR...\033[0m");
-    while (getchar() != '\n');  // Espera Enter
+     int opcao = 0;
+    do {
+        printf("\n\033[32mPRESSIONE [1] PARA COMECAR...\033[0m");
+        printf("\n\033[32mPRESSIONE [2] PARA VER RANKING...\033[0m\n");
+        printf("\n\033[33mOPÇÃO: \033[0m");
+        fflush(stdout);
+
+        char escolha[3];
+        if (fgets(escolha, sizeof(escolha), stdin) != NULL) {
+            opcao = atoi(escolha);
+        }
+
+        switch (opcao) {
+            case 1:
+                printf("\n\033[32mIniciando o jogo...\033[0m\n");
+                break;
+            case 2:
+                printf("\n\033[36mExibindo ranking...\033[0m\n");
+                // Aqui você pode chamar a função que mostra o ranking:
+                // exibirRanking();
+                   exibir_ranking();
+                break;
+            default:
+                printf("\n\033[31mOpção inválida! Tente novamente.\033[0m\n");
+        }
+
+    } while (opcao != 1 && opcao != 2);
 
     // 6. Prepara para o jogo
     enable_raw_mode();  // Reativa modo raw para o jogo

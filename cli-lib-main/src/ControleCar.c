@@ -103,6 +103,10 @@ void executar_jogo_principal(EstadoJogo *estado) {
 }
 
 void finalizar_jogo(EstadoJogo *estado) {
+
+    // Salva a pontuação no ranking
+    salvar_score(estado->jogador.nome, estado->jogador.score);
+    
     printf("\n");
     printf("\nTempo total de jogo: %.2f segundos\n", estado->tempo_decorrido);
     printf(" Sua pontuacao foi de: %03d\n", estado->jogador.score);

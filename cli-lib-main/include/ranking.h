@@ -1,16 +1,16 @@
-
 #ifndef RANKING_H
 #define RANKING_H
 
-#define MAX_PLAYERS 100
+#define ARQUIVO_RANKING "ranking.dat"
+#define MAX_RANKING 10
 
 typedef struct {
-    char name[20];
+    char nome[20];
     int score;
-} PlayerScore;
+} RankingEntry;
 
-void loadScores();
-void sortScores();
-void showRanking();
+void salvar_score(const char *nome, int score);
+void carregar_ranking(RankingEntry ranking[]);
+void exibir_ranking();
 
 #endif

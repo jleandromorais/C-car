@@ -32,7 +32,8 @@ void desenhar_cenario(int posicao, float tempo, int score) {
     const char *pista = "||      |     ||     |     ||     |     ||";
 
     // --- HUD (tempo e pontuação) ---
-    screenSetColor(LIGHTGRAY, BLACK);
+    screenSetNormal();
+    screenSetColor(YELLOW, DARKGRAY);
     screenGotoxy(SCRWIDTH - 15, 1); // Coloca o cursor perto do canto superior direito
     printf("Tempo: %02d:%02d", (int)(tempo/60), (int)tempo%60); // Exibe tempo em minutos:segundos
 
@@ -58,7 +59,7 @@ void desenhar_cenario(int posicao, float tempo, int score) {
     printf("%s", pista);
 
     // --- Desenha o carro do jogador ---
-    const int x_carro = x_inicio + posicoes_x[posicao]; // Converte posição lógica para posição X absoluta
+   const int x_carro = x_inicio + posicoes_x[posicao];
     screenSetColor(LIGHTGRAY, BLACK);
     screenGotoxy(x_carro, y_inicio + 8); // Coloca o carro na linha da "pista"
     printf("\xF0\x9F\x9A\x97"); // Emoji de carro 🚗

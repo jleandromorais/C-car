@@ -1,6 +1,6 @@
 #include "../include/cenario.h"
 #include "../include/tela.h"
-#include "../include/controleCar.h"
+#include "../include/ControleCar.h"
 #include <termios.h>
 #include <unistd.h> 
 #include <fcntl.h> 

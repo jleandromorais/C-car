@@ -20,9 +20,12 @@ void enable_raw_mode() {
 
 int main() {
     enable_raw_mode();
+
+    EstadoJogo estado = inicializar_jogo(); 
+    
       fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
     
-    EstadoJogo estado = inicializar_jogo();
+    
     executar_jogo_principal(&estado);
     finalizar_jogo(&estado);
     

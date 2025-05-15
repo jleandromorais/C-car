@@ -41,7 +41,7 @@ void desenhar_cenario(int posicao, float tempo, int score) {
     printf("Pontos: %03d", score); // Exibe pontuação com 3 dígitos
 
     // --- Parte superior da pista acima do carro ---
-    for(int i = 0; i < 12; i++) {
+    for(int i = 0; i < 18; i++) {
         screenSetColor(LIGHTGRAY, BLACK);
         screenGotoxy(x_inicio, y_inicio + i); // Move cursor linha a linha
         printf("%s", pista); // Desenha a faixa da pista
@@ -55,19 +55,19 @@ void desenhar_cenario(int posicao, float tempo, int score) {
 
     // --- Linha onde o carro está localizado ---
     screenSetColor(LIGHTGRAY, BLACK);
-    screenGotoxy(x_inicio, y_inicio + 8);
+    screenGotoxy(x_inicio, y_inicio + 14);
     printf("%s", pista);
 
     // --- Desenha o carro do jogador ---
    const int x_carro = x_inicio + posicoes_x[posicao];
     screenSetColor(LIGHTGRAY, BLACK);
-    screenGotoxy(x_carro, y_inicio + 8); // Coloca o carro na linha da "pista"
+    screenGotoxy(x_carro, y_inicio + 14); // Coloca o carro na linha da "pista"
     printf("\xF0\x9F\x9A\x97"); // Emoji de carro 🚗
 
     // --- Parte inferior da pista abaixo do carro ---
     for(int i = 0; i < 3; i++) {
         screenSetColor(LIGHTGRAY, BLACK);
-        screenGotoxy(x_inicio, y_inicio + 9 + i); // Desenha 4 linhas abaixo do carro
+        screenGotoxy(x_inicio, y_inicio + 15 + i); // Desenha 4 linhas abaixo do carro
         printf("%s", pista);
     }
 

@@ -3,7 +3,7 @@
 
 typedef struct {
     char nome[21];
-    int score;
+    long long score;
 } Jogador;
 
 // Funções de controle do terminal

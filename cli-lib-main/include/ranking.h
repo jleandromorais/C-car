@@ -1,16 +1,19 @@
 #ifndef RANKING_H
 #define RANKING_H
 
-#define ARQUIVO_RANKING "ranking.dat"
-#define MAX_RANKING 10
-
 typedef struct {
     char nome[20];
-    int score;
+    long long score;  // Alterado para long long
 } RankingEntry;
 
-void salvar_score(const char *nome, int score);
+#define MAX_RANKING 10
+#define ARQUIVO_RANKING "ranking.dat"
+
+// Atualize a assinatura para usar long long
+void salvar_score(const char *nome, long long score);
 void carregar_ranking(RankingEntry ranking[]);
 void exibir_ranking();
+void resetar_ranking();
+void sanitarizar_ranking();
 
 #endif

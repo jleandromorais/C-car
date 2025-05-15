@@ -100,20 +100,6 @@ Agora, o jogo também possui **frutinhas especiais**:
 ├── Makefile       → Arquivo opcional de build
 └── LICENSE        → Licença (opcional)
 ```
-
----
-
-## 📌 Requisitos Atendidos
-
-* ✔️ Linguagem C
-* ✔️ Biblioteca CLI-lib
-* ✔️ Uso de structs e ponteiros
-* ✔️ Alocação dinâmica de memória
-* ✔️ Modularização com `.c` e `.h`
-* ✔️ Interação com o usuário via teclado
-* ✔️ Pontuação e aumento progressivo de dificuldade
-* ✔️ Execução em terminal (modo texto)
-
 ---
 
 ## 📝 Licença

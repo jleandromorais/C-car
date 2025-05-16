@@ -78,7 +78,7 @@ Agora, o jogo também possui **frutinhas especiais**:
 * Você perde se colidir com uma pedra.
 * A cada segundo sobrevivido, sua pontuação aumenta.
 * A dificuldade do jogo (velocidade e quantidade de pedras) aumenta conforme o tempo passa.
-* Ao pegar uma frutinha, seus pontos serão **dobrados por 5 segundos**.
+* Ao pegar uma frutinha, seus pontos serão **dobrados por 10 segundos**.
 
 ### ⌨️ Controles:
 

@@ -70,7 +70,7 @@ CESAR School
 **C-CAR** é um jogo em modo texto onde o jogador controla um carro que precisa **desviar de pedras** que caem do topo da tela. Com o passar do tempo, o jogo fica **mais rápido** e mais obstáculos aparecem. O objetivo é **sobreviver o máximo possível**, acumulando pontos.
 
 Agora, o jogo também possui **frutinhas especiais**:  
-🍓 **Se o carro pegar uma frutinha, a pontuação é dobrada por 5 segundos**!
+🍓 **Se o carro pegar uma frutinha, a pontuação é dobrada por 10 segundos**!
 
 
 ### 🎯 Regras:

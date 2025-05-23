@@ -67,18 +67,18 @@ CESAR School
 
 ## 🎮 Sobre o Jogo
 
-**C-CAR** é um jogo em modo texto onde o jogador controla um carro que precisa **desviar de pedras** que caem do topo da tela. Com o passar do tempo, o jogo fica **mais rápido** e mais obstáculos aparecem. O objetivo é **sobreviver o máximo possível**, acumulando pontos.
+**C-CAR** é um jogo em modo texto onde o jogador controla um carro que precisa **desviar de troncos** que caem do topo da tela. Com o passar do tempo, o jogo fica **mais rápido** e mais obstáculos aparecem. O objetivo é **sobreviver o máximo possível**, acumulando pontos.
 
 Agora, o jogo também possui **frutinhas especiais**:  
-🍓 **Se o carro pegar uma frutinha, a pontuação é dobrada por 5 segundos**!
+🍓 **Se o carro pegar uma frutinha, a pontuação é dobrada por 10 segundos**!
 
 
 ### 🎯 Regras:
 
-* Você perde se colidir com uma pedra.
+* Você perde se colidir com um tronco.
 * A cada segundo sobrevivido, sua pontuação aumenta.
-* A dificuldade do jogo (velocidade e quantidade de pedras) aumenta conforme o tempo passa.
-* Ao pegar uma frutinha, seus pontos serão **dobrados por 5 segundos**.
+* A dificuldade do jogo (velocidade e quantidade de troncos) aumenta conforme o tempo passa.
+* Ao pegar uma frutinha, seus pontos serão **dobrados por 10 segundos**.
 
 ### ⌨️ Controles:
 
@@ -100,20 +100,6 @@ Agora, o jogo também possui **frutinhas especiais**:
 ├── Makefile       → Arquivo opcional de build
 └── LICENSE        → Licença (opcional)
 ```
-
----
-
-## 📌 Requisitos Atendidos
-
-* ✔️ Linguagem C
-* ✔️ Biblioteca CLI-lib
-* ✔️ Uso de structs e ponteiros
-* ✔️ Alocação dinâmica de memória
-* ✔️ Modularização com `.c` e `.h`
-* ✔️ Interação com o usuário via teclado
-* ✔️ Pontuação e aumento progressivo de dificuldade
-* ✔️ Execução em terminal (modo texto)
-
 ---
 
 ## 📝 Licença

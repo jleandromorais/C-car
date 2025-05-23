@@ -23,11 +23,12 @@ void mostrar_menu_inicio(Jogador *jogador) {
     disable_raw_mode();
     screenInit(1); // Limpa tela e desenha bordas
     
-    // Calcula posições centrais
-    const int centro_x = MAXX / 2;
+    // Posição ajustada para a esquerda (subtraímos mais 10 colunas)
+    const int offset_esquerda = 10;
+    const int centro_x = (MAXX / 2) - offset_esquerda;
     const int centro_y = MAXY / 2;
     
-    // Centraliza título ASCII (15 é metade do comprimento do título)
+    // Título ASCII (mais para esquerda)
     screenGotoxy(centro_x - 15, centro_y - 5);
     screenSetColor(YELLOW, BLACK);
     printf("         ██████╗  ═══   ██████╗  █████╗  ██████╗");
@@ -48,14 +49,14 @@ void mostrar_menu_inicio(Jogador *jogador) {
     printf("         ╚═════╝        ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝");
     screenSetNormal();
 
-    // Entrada do nome (centralizada)
+    // Entrada do nome (mais para esquerda)
     screenGotoxy(centro_x - 10, centro_y + 2);
     screenSetColor(CYAN, BLACK);
     printf("DIGITE SEU NOME: ");
     screenSetNormal();
     
     // Posiciona cursor para entrada
-    screenShowCursor(); // Mostra cursor para input
+    screenShowCursor();
     screenGotoxy(centro_x - 10 + 17, centro_y + 2);
     screenUpdate();
     
@@ -68,26 +69,25 @@ void mostrar_menu_inicio(Jogador *jogador) {
     } else {
         strcpy(jogador->nome, "Jogador");
     }
-    screenHideCursor(); // Esconde cursor novamente
+    screenHideCursor();
 
-    // Menu de opções centralizado
+    // Menu de opções (mais para esquerda)
     int opcao = 0;
     do {
-        screenGotoxy(centro_x - 13, centro_y + 4);
+        screenGotoxy(centro_x - 15, centro_y + 4);
         screenSetColor(GREEN, BLACK);
         printf("PRESSIONE [1] PARA COMECAR...");
         
-        screenGotoxy(centro_x - 13, centro_y + 5);
+        screenGotoxy(centro_x - 15, centro_y + 5);
         printf("PRESSIONE [2] PARA VER RANKING...");
         
-        screenGotoxy(centro_x - 13, centro_y + 6);
+        screenGotoxy(centro_x - 15, centro_y + 6);
         screenSetColor(YELLOW, BLACK);
         printf("OPÇÃO: ");
         screenSetNormal();
         
-        // Posiciona cursor para entrada da opção
         screenShowCursor();
-        screenGotoxy(centro_x - 13 + 7, centro_y + 6);
+        screenGotoxy(centro_x - 15 + 7, centro_y + 6);
         screenUpdate();
 
         char escolha[3];
@@ -112,7 +112,6 @@ void mostrar_menu_inicio(Jogador *jogador) {
                 screenUpdate();
                 sleep(1);
                 exibir_ranking();
-                // Redesenha o menu após voltar do ranking
                 screenInit(1);
                 break;
             default:
@@ -122,15 +121,12 @@ void mostrar_menu_inicio(Jogador *jogador) {
                 screenSetNormal();
                 screenUpdate();
                 sleep(1);
-                // Limpa mensagem de erro
                 screenGotoxy(centro_x - 15, centro_y + 8);
                 printf("                                 ");
                 screenUpdate();
         }
-
     } while (opcao != 1 && opcao != 2);
 
-    // Prepara para o jogo
     enable_raw_mode();
     screenClear();
 }
